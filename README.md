@@ -1,0 +1,1 @@
+# aws-resources-cleanup-script
