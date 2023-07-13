@@ -2,7 +2,7 @@
 
 REGION="ap-southeast-1"  # Change this to your desired region
 
-PROFILE="AWSAdministratorAccess-584782747967"  # Change this to your sso profile
+PROFILE="<sso profile>"  # Change this to your sso profile
 
 # Get the instance IDs of all running instances in the specified region
 INSTANCE_IDS=$(aws ec2 describe-instances --region "$REGION" --filters "Name=instance-state-name,Values=running" --query "Reservations[].Instances[].InstanceId" --output text --profile "$PROFILE")
