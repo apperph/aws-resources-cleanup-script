@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Set the AWS region where the EC2 instances exist
-AWS_REGION="your-aws-region"
+AWS_REGION="ap-southeast-1"
+
+PROFILE="<sso-profile>" # Change this to your sso profile
 
 # Fetch list of EBS volumes
-volumes=$(aws ec2 describe-volumes --region $AWS_REGION --query "Volumes[?Attachments[0].State=='detached'].VolumeId" --output text)
+volumes=$(aws ec2 describe-volumes --region $AWS_REGION --query "Volumes[?State=='available'].VolumeId" --output text --profile "$PROFILE")
 
 # Check if any volumes exist
 if [ -z "$volumes" ]; then
@@ -15,5 +17,5 @@ fi
 # Delete each volume
 for volume in $volumes; do
     echo "Deleting volume: $volume"
-    aws ec2 delete-volume --region $AWS_REGION --volume-id $volume
+    aws ec2 delete-volume --region $AWS_REGION --volume-id $volume --profile "$PROFILE"
 done
