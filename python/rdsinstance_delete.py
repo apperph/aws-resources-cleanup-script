@@ -41,7 +41,7 @@ def stop_rds_instances(event, context):
             # Iterate through each databases to check instance launch time            
             for database in dbinstances['DBInstances']:
                 for instance_id in database['DBInstanceIdentifier']:
-                    launch_time = instance_id['InstanceCreatedTime']
+                    launch_time = database['InstanceCreateTime']
                     
                     # Calculate the time difference between current time and launch time
                     running_time = now - launch_time
