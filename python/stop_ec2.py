@@ -4,7 +4,7 @@ import os
 
 def stop_old_ec2_instances(event, context):
     # Define a list of AWS account IDs to check
-    account_ids = ['707125572044', '058690268851', '584782747967', '236921907600']  # Add more account IDs as needed
+    account_ids = ['707125572044', '058690268851', '584782747967', '236921907600', '562032292525']  # Add more account IDs as needed
     
     for account_id in account_ids:
         # Assume the role in the target account
