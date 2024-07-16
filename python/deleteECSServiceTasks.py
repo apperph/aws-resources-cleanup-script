@@ -36,6 +36,10 @@ def delete_old_services_and_tasks(event, context):
                 services_response = ecs_client.list_services(cluster=cluster_name)
                 service_arns = services_response['serviceArns']
                 
+                if not service_arns:
+                    print(f"No services found in cluster {cluster_name}.")
+                    return
+                    
                 # Describe the services to get their details
                 services = ecs_client.describe_services(cluster=cluster_name, services=service_arns)['services']
                 

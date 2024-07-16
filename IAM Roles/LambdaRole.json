@@ -52,7 +52,9 @@
                 "kms:List*",
 				"kms:Delete*",
 				"kms:Update*",
-				"kms:ScheduleKeyDeletion"
+				"kms:ScheduleKeyDeletion",
+				"kms:Get*",
+				"kms:Put*"
 			],
 			"Resource": "*"
 		},

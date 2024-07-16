@@ -36,17 +36,17 @@ def update_kms_key_policy(event, context):
                 
                 # Define the statement to allow schedule deletion
                 schedule_deletion_statement = {
-                            "Sid": "AllowScheduleKeyDeletion",
+                            "Sid": "AllowPutKeyPolicy",
                             "Effect": "Allow",
                             "Principal": "*",
-                            "Action": "kms:ScheduleKeyDeletion",
+                            "Action": "kms:PutKeyPolicy",
                             "Resource": "*"
                         }
                 
                 # Check if the statement already exists
                 statements = policy_document.get("Statement", [])
 
-                if not any(stmt for stmt in statements if stmt.get("Sid") == "AllowScheduleKeyDeletion"):
+                if not any(stmt for stmt in statements if stmt.get("Sid") == "AllowPutKeyPolicy"):
                     statements.append(schedule_deletion_statement)
                     policy_document["Statement"] = statements
                     
