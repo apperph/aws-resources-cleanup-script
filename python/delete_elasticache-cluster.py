@@ -22,7 +22,7 @@ def delete_elasticachecluster(event, context):
             aws_session_token=credentials['SessionToken']
         )
 
-        aws_regions = ['us-west-2', 'us-east-1', 'eu-west-1']  # Replace with your list of AWS regions
+        aws_regions = ['ap-southeast-1','ap-southeast-2','us-east-1','us-east-2','us-west-2']  # Replace with your list of AWS regions
         min_age_hours = 6  # Minimum age in hours before deleting a cluster
 
         for region in aws_regions:

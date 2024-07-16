@@ -6,8 +6,8 @@
 			"Action": [
 				"ec2:Describe*",
 				"ec2:StopInstances",
+				"ec2:TerminateInstances",
 				"ec2:ReleaseAddress",
-				"ec2:DescribeNatGateways",
 				"ec2:DeleteNatGateway"
 			],
 			"Resource": "*"
@@ -28,18 +28,51 @@
 		},
 		{
 			"Effect": "Allow",
-			"Action": "autoscaling:Describe*",
+			"Action": [
+				"autoscaling:Describe*",
+				"autoscaling:UpdateAutoScalingGroup",
+				"autoscaling:DeleteAutoScalingGroup"
+			],
 			"Resource": "*"
 		},
 		{
-         "Sid": "AllowRDSDescribe",
-         "Effect": "Allow",
-         "Action": [
-             "rds:Describe*",
-             "rds:DeleteDBInstance",
-             "rds:DeleteDBCluster"
-            ],
-         "Resource": "*"
-      }
+			"Effect": "Allow",
+			"Action": [
+				"ecs:Describe*",
+                "ecs:List*",
+				"ecs:Delete*",
+				"ecs:Update*"
+			],
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"kms:Describe*",
+                "kms:List*",
+				"kms:Delete*",
+				"kms:Update*",
+				"kms:ScheduleKeyDeletion"
+			],
+			"Resource": "*"
+		},
+		{
+			"Effect": "Allow",
+			"Action": [
+				"elasticache:DescribeCacheClusters",
+                "elasticache:DeleteCacheCluster"
+			],
+			"Resource": "*"
+		},
+		{
+			"Sid": "AllowRDSDelete",
+			"Effect": "Allow",
+			"Action": [
+				"rds:Describe*",
+				"rds:DeleteDBInstance",
+				"rds:DeleteDBCluster"
+			],
+			"Resource": "*"
+		}
 	]
 }

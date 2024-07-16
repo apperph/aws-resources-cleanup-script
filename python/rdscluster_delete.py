@@ -48,9 +48,9 @@ def stop_rds_cluster(event, context):
                     # If running time is more than 5 hours, stop the instance
                     if running_time > timedelta(hours=4):
                         rds_region.delete_db_cluster(
-                DBClusterIdentifier=cluster['DBClusterIdentifier'],
-                SkipFinalSnapshot=True
-            )
+                            DBClusterIdentifier=cluster['DBClusterIdentifier'],
+                            SkipFinalSnapshot=True
+                            )
                         print(f"DBCluster {cluster_id} from account {account_id} stopped as it was running for more than 4 hours.")
                     else:
                         print(f"DBCluster {cluster_id} from account {account_id} is running for less than 4 hours.")
