@@ -41,7 +41,9 @@
 				"ecs:Describe*",
                 "ecs:List*",
 				"ecs:Delete*",
-				"ecs:Update*"
+				"ecs:Update*",
+				"ecr:DescribeRepositories",
+				"ecr:DeleteRepository"
 			],
 			"Resource": "*"
 		},
