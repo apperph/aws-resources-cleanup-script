@@ -1,5 +1,5 @@
 import boto3
-import datetime
+from datetime import datetime, timezone, timedelta
 import os
 
 def delete_elasticachecluster(event, context):
@@ -24,6 +24,7 @@ def delete_elasticachecluster(event, context):
 
         aws_regions = ['ap-southeast-1','ap-southeast-2','us-east-1','us-east-2','us-west-2']  # Replace with your list of AWS regions
         min_age_hours = 6  # Minimum age in hours before deleting a cluster
+        now = datetime.now(timezone.utc)
 
         for region in aws_regions:
             print(f"Processing region: {region}")
@@ -38,14 +39,19 @@ def delete_elasticachecluster(event, context):
 
             for cluster in clusters:
                 creation_time = cluster['CacheClusterCreateTime']
-                age_in_hours = (datetime.datetime.now() - creation_time) / datetime.timedelta(hours=1)
+                age_in_timedelta = (now - creation_time)
+                age_in_hours = age_in_timedelta.total_seconds() / 3600
 
                 if age_in_hours > min_age_hours:
                     print(f"Deleting ElastiCache cluster: {cluster['CacheClusterId']} in region: {region}")
-                    elasticache.delete_cache_cluster(
-                        CacheClusterId=cluster['CacheClusterId'],
-                        FinalSnapshotIdentifier=f"{cluster['CacheClusterId']}-final-snapshot"
-                    )
+                    if 'ReplicationGroupId' in cluster:
+                        elasticache.delete_replication_group(
+                            ReplicationGroupId=cluster['ReplicationGroupId']
+                        )
+                    else:
+                        elasticache.delete_cache_cluster(
+                            CacheClusterId=cluster['CacheClusterId']
+                        )
                 else:
                     print(f"Skipping ElastiCache cluster: {cluster['CacheClusterId']} in region: {region} because it is less than {min_age_hours} hours old.")
 

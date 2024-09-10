@@ -64,7 +64,8 @@
 			"Effect": "Allow",
 			"Action": [
 				"elasticache:DescribeCacheClusters",
-                "elasticache:DeleteCacheCluster"
+                "elasticache:DeleteCacheCluster",
+				"elasticache:DeleteReplicationGroup"
 			],
 			"Resource": "*"
 		},
