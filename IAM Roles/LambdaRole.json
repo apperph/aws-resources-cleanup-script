@@ -8,7 +8,9 @@
 				"ec2:StopInstances",
 				"ec2:TerminateInstances",
 				"ec2:ReleaseAddress",
-				"ec2:DeleteNatGateway"
+				"ec2:Delete*",
+				"ec2:Detach*",
+				"ec2:CreateTags"
 			],
 			"Resource": "*"
 		},
